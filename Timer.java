@@ -49,7 +49,7 @@ public class Timer {
      * @return String representation of the timer, which is [name] [tab] [time]
      */
     public String toString() {
-        return String.format("%s\t%8.1f", name, getTotalTime());
+        return String.format("%s\t runtime \t %8.1f", name, getTotalTime());
     }
 }
 
