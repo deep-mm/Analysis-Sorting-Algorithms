@@ -51,5 +51,8 @@ public class QuickSort {
   /*
    * Perform quick sort on the elements in the linked list
    */
-  public void sortElements() {}
+  public void sortElements() { // In Progress
+    Node mid = this.list.findMid();
+    System.out.println("Middle = " + mid.data);
+  }
 }

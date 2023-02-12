@@ -50,4 +50,25 @@ public class LinkedList {
       curr = curr.next;
     }
   }
+
+  /*
+   * This function returns the middle node of the linked list
+   */
+  public Node findMid() {
+    Node first = this.head;
+    Node second = this.head;
+
+    while (second!=this.tail){
+      if (second.next.next == null){
+        second = second.next;
+      }
+      else{
+        second = second.next.next;
+      }
+
+      first = first.next;
+    }
+
+    return first;
+  }
 }
