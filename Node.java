@@ -1,6 +1,6 @@
 public class Node {
-    int data;
-    Node next;
+    int data; // Stores integer data
+    Node next; // Pointer to the next element
 
     public Node (int data){
         this.data = data;
