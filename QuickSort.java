@@ -24,7 +24,7 @@ public class QuickSort {
       insertElement(elementToInsert);
     }
     timer.start();
-    sortElements();
+    this.list = sortElements(this.list);
     timer.stop();
     System.out.println("Sorted List: ");
     this.list.printLinkedList();
@@ -51,8 +51,27 @@ public class QuickSort {
   /*
    * Perform quick sort on the elements in the linked list
    */
-  public void sortElements() { // In Progress
-    Node mid = this.list.findMid();
-    System.out.println("Middle = " + mid.data);
+  public LinkedList sortElements(LinkedList linkedList) { // In Progress
+    Node first = linkedList.head;
+    Node mid = linkedList.findMid();
+    Node last = linkedList.tail;
+    
+    Node median = getMedian(first, mid, last);
+
+    
+
+    return linkedList;
+  }
+
+  public Node getMedian(Node n1, Node n2, Node n3){
+    if (n1.data > n2.data && n2.data > n3.data){
+      return n2;
+    }
+    else if (n2.data > n1.data && n1.data > n3.data){
+      return n1;
+    }
+    else {
+      return n3;
+    }
   }
 }
