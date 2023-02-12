@@ -1,9 +1,6 @@
 name: Analysis-Sorting-Algorithms
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       algorithm:
@@ -23,5 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: python random_permutation.py ${{ github.event.inputs.number_of_inputs }} -b 5 > random.txt
+
+      - run: javac Sort.java
 
       - run: ./run_sort.sh ${{ github.event.inputs.algorithm }} < random.txt
