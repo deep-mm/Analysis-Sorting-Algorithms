@@ -40,25 +40,22 @@ public class InsertionSort {
     Node nodeToAdd = new Node(element);
 
     // If head is null or element to insert is less then head
-    if (curr == null || element < curr.data) {
+    if (curr == null || nodeToAdd.compareTo(curr) == -1) {
       // Make the current element head
       nodeToAdd.next = curr;
       this.list.head = nodeToAdd;
       if (this.list.tail == null) {
         this.list.tail = this.list.head;
       }
-      comparison.increment();
       return;
     } else {
       prev = curr;
       curr = curr.next;
-      comparison.increment();
     }
 
     // Find a element in existing list such that the new element to insert is less than that
     while (curr != null) {
-      comparison.increment();
-      if (element < curr.data) {
+      if (nodeToAdd.compareTo(curr) == -1) {
         this.list.insertElementBtwnNodes(prev, nodeToAdd);
         return;
       }

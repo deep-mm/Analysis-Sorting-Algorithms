@@ -5,21 +5,14 @@ public class Comparison {
 
   public Comparison(String name) {
     this.name = name;
-    this.count = 0;
-  }
-
-  /*
-   * Increment the comparison count by one
-   */
-  public void increment() {
-    this.count++;
+    Sort.compareCount = 0;
   }
 
   /*
    * Return total number of current comparisons
    */
   public int getTotalComparisons() {
-    return this.count;
+    return Sort.compareCount;
   }
 
   /*
