@@ -73,6 +73,5 @@ public class InsertionSort {
       this.list.tail.next = nodeToAdd;
       this.list.tail = nodeToAdd;
     }
-    comparison.increment();
   }
 }
