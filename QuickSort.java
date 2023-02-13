@@ -64,10 +64,10 @@ public class QuickSort {
   }
 
   public Node getMedian(Node n1, Node n2, Node n3){
-    if (n1.data > n2.data && n2.data > n3.data){
+    if ((n1.data > n2.data && n2.data > n3.data) || (n3.data > n2.data && n2.data > n1.data)){
       return n2;
     }
-    else if (n2.data > n1.data && n1.data > n3.data){
+    else if ((n2.data > n1.data && n1.data > n3.data) || (n3.data > n1.data && n1.data > n2.data)){
       return n1;
     }
     else {

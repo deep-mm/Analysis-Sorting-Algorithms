@@ -3,24 +3,26 @@ name: Analysis-Sorting-Algorithms
 on:
   workflow_dispatch:
     inputs:
-      algorithm:
-        description: 'Sorting algorithm to run'
-        required: true
-        default: 'insertion'
       number_of_inputs:
         description: 'Total number of inputs'
         required: true
-        default: '100'
+        default: '1000'
+      block_size:
+        description: 'Block Size'
+        required: true
+        default: '1'
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        algorithm: ['insertion','merge','quick']
     steps:
       - uses: actions/checkout@v2
 
-      - run: python random_permutation.py ${{ github.event.inputs.number_of_inputs }} -b 5 > random.txt
+      - run: python random_permutation.py ${{ github.event.inputs.number_of_inputs }} -b ${{ github.event.inputs.block_size }} > random.txt
 
       - run: javac Sort.java
 
-      - run: ./run_sort.sh ${{ github.event.inputs.algorithm }} < random.txt
+      - run: ./run_sort.sh ${{ matrix.algorithm }} < random.txt
