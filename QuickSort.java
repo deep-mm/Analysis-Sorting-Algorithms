@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class QuickSort {
@@ -58,20 +61,17 @@ public class QuickSort {
     
     Node median = getMedian(first, mid, last);
 
-    
+    System.out.println("Median: " + median.data);
 
     return linkedList;
   }
 
   public Node getMedian(Node n1, Node n2, Node n3){
-    if ((n1.data > n2.data && n2.data > n3.data) || (n3.data > n2.data && n2.data > n1.data)){
-      return n2;
-    }
-    else if ((n2.data > n1.data && n1.data > n3.data) || (n3.data > n1.data && n1.data > n2.data)){
-      return n1;
-    }
-    else {
-      return n3;
-    }
+    List<Node> nodes = new ArrayList<Node>();
+    nodes.add(n1);
+    nodes.add(n2);
+    nodes.add(n3);
+    Collections.sort(nodes);
+    return nodes.get(1);
   }
 }
