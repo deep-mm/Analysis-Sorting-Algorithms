@@ -11,6 +11,10 @@ on:
         description: 'Block Size'
         required: true
         default: '1'
+      input_file:
+        description: 'Name of input file'
+        required: true
+        default: 'random.txt'
 
 jobs:
   run:
@@ -25,4 +29,4 @@ jobs:
 
       - run: javac Sort.java
 
-      - run: ./run_sort.sh ${{ matrix.algorithm }} < random.txt
+      - run: ./run_sort.sh ${{ matrix.algorithm }} < ${{ github.event.inputs.input_file }}
