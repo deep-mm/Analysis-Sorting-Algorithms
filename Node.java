@@ -11,6 +11,6 @@ public class Node implements Comparable<Node> {
   @Override
   public int compareTo(Node otherNode) {
       Sort.compareCount+=1;
-      return Integer.compare(this.data, otherNode.data);
+      return Integer.compare(this.data, otherNode.data); // -1 if less, 0 if equal, 1 otherwise
   }
 }
