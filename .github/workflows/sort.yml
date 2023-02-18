@@ -29,4 +29,4 @@ jobs:
 
       - run: javac Sort.java
 
-      - run: ./run_sort.sh ${{ matrix.algorithm }} < ${{ github.event.inputs.input_file }}
+      - run: ./run_sort.sh ${{ matrix.algorithm }} < <(tac ${{ github.event.inputs.input_file }})

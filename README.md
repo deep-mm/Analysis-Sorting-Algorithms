@@ -13,5 +13,5 @@ python random_permutation.py 10000 -b 5 > random.txt
 
 To use sorting algorithm:
 ```
-./run_sort.sh {name_of_algo, e.g. insertion} < random.txt
+./run_sort.sh {name_of_algo, e.g. insertion} < <(tac random.txt)
 ```
