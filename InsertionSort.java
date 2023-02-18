@@ -25,8 +25,9 @@ public class InsertionSort {
       insertElement(elementToInsert);
     }
     timer.stop();
-    System.out.println("Sorted List: ");
-    this.list.printLinkedList();
+    // TODO: Uncomment this to print the sorted list
+    //System.out.println("Sorted List: ");
+    //this.list.printLinkedList();
     System.err.println(comparison.toString());
     System.err.println(timer.toString());
   }
@@ -39,8 +40,8 @@ public class InsertionSort {
     Node prev = null;
     Node nodeToAdd = new Node(element);
 
-    // If head is null or element to insert is less then head
-    if (curr == null || nodeToAdd.compareTo(curr) == -1) {
+    // If head is null or element to insert is less then or equal to head
+    if (curr == null || nodeToAdd.compareTo(curr) <= 0) {
       // Make the current element head
       nodeToAdd.next = curr;
       this.list.head = nodeToAdd;
@@ -53,9 +54,9 @@ public class InsertionSort {
       curr = curr.next;
     }
 
-    // Find a element in existing list such that the new element to insert is less than that
+    // Find a element in existing list such that the new element to insert is less than or equal to that
     while (curr != null) {
-      if (nodeToAdd.compareTo(curr) == -1) {
+      if (nodeToAdd.compareTo(curr) <= 0) {
         this.list.insertElementBtwnNodes(prev, nodeToAdd);
         return;
       }
