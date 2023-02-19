@@ -68,9 +68,7 @@ public class QuickSort {
       leftPrev = left;
       left = left.next;
       pivotIndicator = 0;
-    }
-
-    if (right == pivot) {
+    } else if (right == pivot) {
       rightPrev = right;
       right = right.next;
       pivotIndicator = 1;
@@ -78,88 +76,71 @@ public class QuickSort {
 
     while (true) {
       while (left.next != mid && left.compareTo(pivot) <= 0) {
-        if (left.compareTo(pivot) == 0) {
-          if (equal == null) {
-            equal = left;
-            equalHead = left;
-          } else {
-            equal.next = left;
-            equal = equal.next;
-          }
-
-          leftPrev.next = left.next;
-        } else leftPrev = left;
+        if (left.compareTo(pivot) == 0) addElementToPivotEqualList(
+          equal,
+          equalHead,
+          left,
+          leftPrev
+        ); else leftPrev = left;
 
         left = left.next;
       }
 
-      while (right.next != list.tail && right.compareTo(pivot) >= 0) {
-        if (right.compareTo(pivot) == 0) {
-          if (equal == null) {
-            equal = right;
-            equalHead = right;
-          } else {
-            equal.next = right;
-            equal = equal.next;
-          }
-
-          rightPrev.next = right.next;
-        } else rightPrev = right;
+      while (right != list.tail && right.compareTo(pivot) >= 0) {
+        if (right.compareTo(pivot) == 0) addElementToPivotEqualList(
+          equal,
+          equalHead,
+          right,
+          rightPrev
+        ); else rightPrev = right;
 
         right = right.next;
       }
 
-      if (left.next != mid && right.next != list.tail) {
+      if (left.next != mid && right != list.tail) {
         boolean flag = false;
         if (left == list.head) {
           flag = true;
         }
         list.exchangeNodes(left, leftPrev, right, rightPrev);
-        Node temp = new Node(left);
+        Node temp = left.next;
         leftPrev = right;
+				rightPrev = left;
         left = right.next;
-        rightPrev = temp;
-        right = temp.next;
+        right = temp;
         if (flag) {
           list.head = leftPrev;
         }
-      } else {
-        break;
-      }
+      } else break;
     }
 
-    while (right.next != list.tail) {
-      if (right.compareTo(pivot) == 0) {
-        if (equal == null) {
-          equal = right;
-          equalHead = right;
-        } else {
-          equal.next = right;
-          equal = equal.next;
-        }
-
-        rightPrev.next = right.next;
-      } else if (right.compareTo(pivot) < 0) {
-        Node temp = new Node(right);
-        temp.next = left.next;
-        left.next = temp;
-        leftPrev = left;
-        left = left.next;
-        rightPrev.next = right.next;
-      } else rightPrev = right;
+    while (right != list.tail) {
+      if (right.compareTo(pivot) == 0) addElementToPivotEqualList(
+        equal,
+        equalHead,
+        right,
+        rightPrev
+      ); else if (right.compareTo(pivot) < 0) transferElement(
+        right,
+        rightPrev,
+        left,
+        leftPrev
+      ); else rightPrev = right;
 
       right = right.next;
     }
 
-    if (right.next == list.tail) {
+    if (right == list.tail) {
       if (list.tail.compareTo(pivot) == 0) {
+        right = rightPrev;
         right.next = null;
         list.tail = right;
       } else if (list.tail.compareTo(pivot) < 0) {
-        Node temp = new Node(list.tail);
-        temp.next = left;
-        leftPrev = temp;
+        leftPrev.next = right;
+        right.next = left;
+        leftPrev = right;
 
+        right = rightPrev;
         right.next = null;
         list.tail = right;
       } else {
@@ -169,47 +150,30 @@ public class QuickSort {
     }
 
     while (left.next != mid) {
-      if (left.compareTo(pivot) == 0) {
-        if (equal == null) {
-          equal = left;
-          equalHead = left;
-        } else {
-          equal.next = left;
-          equal = equal.next;
-        }
-
-        leftPrev.next = left.next;
-      } else if (left.compareTo(pivot) > 0) {
-        Node temp = new Node(left);
-        temp.next = right.next;
-        right.next = left;
-        rightPrev = right;
-        right = right.next;
-        leftPrev.next = left.next;
-      } else leftPrev = left;
+      if (left.compareTo(pivot) == 0) addElementToPivotEqualList(
+        equal,
+        equalHead,
+        left,
+        leftPrev
+      ); else if (left.compareTo(pivot) > 0) transferElement(
+        left,
+        leftPrev,
+        right,
+        rightPrev
+      ); else leftPrev = left;
 
       left = left.next;
     }
 
     if (left.compareTo(pivot) == 0) {
-      if (equal == null) {
-        equal = left;
-        equalHead = left;
-      } else {
-        equal.next = left;
-        equal = equal.next;
-      }
-
-      leftPrev.next = null;
+      addElementToPivotEqualList(equal, equalHead, left, leftPrev);
       left = leftPrev;
     } else if (left.compareTo(pivot) > 0) {
-      Node temp = new Node(left);
-      temp.next = right.next;
+      leftPrev.next = left.next;
+      left.next = right.next;
       right.next = left;
       rightPrev = right;
       right = right.next;
-
-      leftPrev.next = null;
       left = leftPrev;
     }
 
@@ -250,5 +214,42 @@ public class QuickSort {
     nodes.add(n3);
     Collections.sort(nodes);
     return nodes.get(1);
+  }
+
+  /*
+   * Add node to existing list of elements equal to the pivot
+   */
+  public void addElementToPivotEqualList(
+    Node equal,
+    Node equalHead,
+    Node node,
+    Node nodePrev
+  ) {
+    if (equal == null) {
+      equal = node;
+      equalHead = node;
+    } else {
+      equal.next = node;
+      equal = equal.next;
+    }
+
+    nodePrev.next = node.next;
+  }
+
+  /*
+   * Transfer node1 to node2.next
+   */
+  public void transferElement(
+    Node node1,
+    Node node1Prev,
+    Node node2,
+    Node node2Prev
+  ) {
+    Node temp = node1.next;
+    node1.next = node2.next;
+    node2.next = node1;
+    node2Prev = node2;
+    node2 = node2.next;
+    node1Prev.next = temp;
   }
 }
