@@ -10,8 +10,8 @@ public class MergeSort {
   public MergeSort() {
     list = new LinkedList();
     scanner = new Scanner(System.in);
-    timer = new Timer("Quick Sort");
-    comparison = new Comparison("Quick Sort");
+    timer = new Timer("Merge Sort");
+    comparison = new Comparison("Merge Sort");
   }
 
   /*
