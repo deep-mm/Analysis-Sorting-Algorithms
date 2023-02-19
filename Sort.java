@@ -9,7 +9,8 @@ public class Sort {
         insertionSort.sortList();
         break;
       case "merge":
-        // Run Merge Sort
+        MergeSort mergeSort = new MergeSort();
+        mergeSort.sortList();
         break;
       case "quick":
         QuickSort quickSort = new QuickSort();
