@@ -72,6 +72,7 @@ public class QuickSort {
    * 3. Greater than Pivot
    */
   public LinkedList[] partition(LinkedList list) {
+    this.list = list;
     Node left = list.head; // Start left pointer from left most element
     mid = list.findMid(); // Get middle element
     Node last = list.tail; // Get last element
@@ -86,9 +87,9 @@ public class QuickSort {
     int compare = 0;
 
     if (pivot == left) {
+      left = left.next;
       pivot.next = mid.next;
       mid.next = pivot;
-      left = left.next;
       list.head = left;
     }
 
@@ -99,18 +100,14 @@ public class QuickSort {
     }
 
     mid = pivot;
-    right = right.next;
-    rightPrev = pivot;
+    right = mid.next;
+    rightPrev = mid;
 
     while (true) {
-      while (left != mid) {
-        compare = left.compareTo(pivot);
-        if (compare < 0){
-          leftPrev = left;
-          left = left.next;
-        }
-        else if (compare == 0) left = addToEqualElementsList(left, leftPrev, equal);
-        else break;
+      if (right == pivot){
+        rightPrev.next = null;
+        right = null;
+        rightEndElement = null;
       }
 
       while (right != rightEndElement) {
@@ -120,6 +117,16 @@ public class QuickSort {
           right = right.next;
         }
         else if (compare == 0) right = addToEqualElementsList(right, rightPrev, equal);
+        else break;
+      }
+
+      while (left != mid) {
+        compare = left.compareTo(pivot);
+        if (compare < 0){
+          leftPrev = left;
+          left = left.next;
+        }
+        else if (compare == 0) left = addToEqualElementsList(left, leftPrev, equal);
         else break;
       }
 
@@ -142,13 +149,20 @@ public class QuickSort {
       } else break;
     }
 
+    if (list.head.compareTo(pivot) == 0) list.head = null;
     if (leftPrev == null) leftPrev = list.head;
     else leftPrev.next = null;
+
+    mid = mid.next;
+    pivot.next = null;
+    if (rightPrev.compareTo(pivot) == 0) rightPrev = null;
+    
+    equal.add(pivot);
 
     return new LinkedList[] {
       new LinkedList(list.head, leftPrev),
       new LinkedList(equal.head, equal.tail),
-      new LinkedList(mid, right),
+      new LinkedList(mid, rightPrev),
     };
   }
 
