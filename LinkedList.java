@@ -45,6 +45,9 @@ public class LinkedList {
    * Insert element in between 2 nodes
    */
   public Node insertElementBtwnNodes(Node existing, Node toAdd) {
+    if(existing == this.tail){
+      this.tail = toAdd;
+    }
     Node temp = existing.next;
     existing.next = toAdd;
     toAdd.next = temp;
@@ -97,4 +100,5 @@ public class LinkedList {
 
     return first;
   }
+
 }
