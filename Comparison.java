@@ -1,7 +1,6 @@
 public class Comparison {
 
   String name; //Name of the sorting algorithm
-  int count; //Maintains the total count of comparisons
 
   public Comparison(String name) {
     this.name = name;
