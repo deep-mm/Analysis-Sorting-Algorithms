@@ -10,8 +10,7 @@
             "request": "launch",
             "mainClass": "Sort",
             "projectName": "Analysis-Sorting-Algorithms_a302695c",
-            // Pass arguments to the program
-            "args": ["quick"]
+            "args" : ["merge"]
         }
     ]
 }
