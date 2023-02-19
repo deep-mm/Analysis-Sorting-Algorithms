@@ -28,6 +28,19 @@ public class LinkedList {
   }
 
   /*
+   * Add a new node to the linked list
+   */
+  public void add(Node element) {
+    if(this.head == null){
+      this.head = element;
+    }
+    else{
+      this.tail.next = element;
+    }
+    this.tail = element;
+  }
+
+  /*
    * Return head of linked list
    */
   public Node getLinkedList() {
@@ -55,10 +68,10 @@ public class LinkedList {
    * Exchange 2 nodes
    */
   public void exchangeNodes(Node first, Node firstPrev, Node second, Node secondPrev) {
-    if (firstPrev != null)
+    if (firstPrev != null && firstPrev != second)
       firstPrev.next = second;
     
-    if (secondPrev != null)
+    if (secondPrev != null && secondPrev != first)
       secondPrev.next = first;
 
     Node temp = first.next;
