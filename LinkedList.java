@@ -76,7 +76,7 @@ public class LinkedList {
 
     Node temp = first.next;
     first.next = second.next;
-    second.next = temp;
+    second.next = temp == second ? first : temp;
   }
 
   /*

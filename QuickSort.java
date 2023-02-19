@@ -38,32 +38,35 @@ public class QuickSort {
   /*
    * Perform quick sort on the elements in the linked list
    */
-  public LinkedList sortElements(LinkedList linkedList) { // In Progress
-
-		if (linkedList.head == linkedList.tail){
-			return linkedList;
-		}
-
-		if (linkedList.head.next == linkedList.tail){
-			if (linkedList.head.compareTo(linkedList.tail) > 0){
-				linkedList.tail.next = linkedList.head;
-				linkedList.head.next = null;
-				return new LinkedList(linkedList.tail, linkedList.head);
-			}
-			return linkedList;
-		}
+  private LinkedList sortElements(LinkedList linkedList) {
+    if (linkedList.head == linkedList.tail) { // If list has just one element
+      return linkedList;
+    } else if (linkedList.head.next == linkedList.tail) { // If list has just two elements
+      if (linkedList.head.compareTo(linkedList.tail) > 0) {
+        linkedList.insertElementBtwnNodes(linkedList.tail, linkedList.head);
+        return new LinkedList(linkedList.tail, linkedList.head);
+      }
+      else return linkedList;
+    }
 
     LinkedList[] partitions = partition(linkedList);
     LinkedList left = sortElements(partitions[0]);
     LinkedList center = partitions[1];
     LinkedList right = sortElements(partitions[2]);
 
-    left.tail.next = center.head;
+    if (left.head == null) left.head = center.head; else left.tail.next =
+      center.head;
     center.tail.next = right.head;
 
     return new LinkedList(left.head, right.tail);
   }
 
+  /*
+   * Partition the linked list into 3 parts:
+   * 1. Less than Pivot
+   * 2. Pivot and Equal to Pivot
+   * 3. Greater than Pivot
+   */
   public LinkedList[] partition(LinkedList list) {
     Node left = list.head; // Start left pointer from left most element
     Node mid = list.findMid(); // Get middle element
@@ -71,12 +74,12 @@ public class QuickSort {
     Node right = mid; // Start right pointer from middle element
 
     Node pivot = getMedian(left, mid, last); // Get median of 3 elements and use it as a pivot
-    Node equal = null; // Nodes equal to pivot
-    Node equalHead = null; // Head of nodes equal to pivot
+    LinkedList equal = new LinkedList(); // List to store all elements equal to pivot
 
     Node leftPrev = null;
     Node rightPrev = null;
     int pivotIndicator = 2; // 0 - left, 1 - mid, 2 - right
+    int compare = 0;
 
     if (left == pivot) {
       leftPrev = left;
@@ -89,106 +92,84 @@ public class QuickSort {
     }
 
     while (true) {
-      while (left.next != mid && left.compareTo(pivot) <= 0) {
-        if (left.compareTo(pivot) == 0) addElementToPivotEqualList(
-          equal,
-          equalHead,
-          left,
-          leftPrev
-        ); else leftPrev = left;
+      compare = left.compareTo(pivot);
+      while (left != mid && compare <= 0) {
+        if (compare == 0) {
+          equal.add(left);
+          if (leftPrev == null) leftPrev = left; else leftPrev.next = left.next;
+        } else leftPrev = left;
 
         left = left.next;
+        compare = left.compareTo(pivot);
       }
 
-      while (right != list.tail && right.compareTo(pivot) >= 0) {
-        if (right.compareTo(pivot) == 0) addElementToPivotEqualList(
-          equal,
-          equalHead,
-          right,
-          rightPrev
-        ); else rightPrev = right;
+      compare = right.compareTo(pivot);
+      while (right != list.tail && compare >= 0) {
+        if (compare == 0) {
+          equal.add(right);
+          if (rightPrev == null) rightPrev = right; else rightPrev.next =
+            right.next;
+        } else rightPrev = right;
 
         right = right.next;
+        compare = right.compareTo(pivot);
       }
 
-      if (left.next != mid && right != list.tail) {
+      if (left != mid && right != list.tail) {
         boolean flag = false;
-        if (left == list.head) {
-          flag = true;
-        }
-        list.exchangeNodes(left, leftPrev, right, rightPrev);
+        if (left == list.head) flag = true;
+
+        list.exchangeNodes(left, leftPrev, right, rightPrev); // Exchange left and right elements
+        if (right == mid) mid = mid.next;
+        // Update pointers to next elements
         Node temp = left.next;
         leftPrev = right;
-				rightPrev = left;
+        rightPrev = left;
         left = right.next;
         right = temp;
-        if (flag) {
-          list.head = leftPrev;
-        }
+
+        if (flag) list.head = leftPrev;
+      } else if (right != list.tail) {
+        Node temp = right.next;
+
+        boolean flag = false;
+        if (left == list.head) flag = true;
+
+        leftPrev = transferElement(right, rightPrev, left, leftPrev);
+        if (right == mid) mid = mid.next;
+        right = temp;
+
+        if (flag) list.head = leftPrev != null ? leftPrev : left;
+      } else if (left != mid) {
+        Node temp = left.next;
+
+        boolean flag = false;
+        if (left == list.head) flag = true;
+
+        rightPrev = transferElement(left, leftPrev, right, rightPrev);
+        left = temp;
+
+        if (flag) list.head = leftPrev != null ? leftPrev : left;
       } else break;
     }
 
-    while (right != list.tail) {
-      if (right.compareTo(pivot) == 0) addElementToPivotEqualList(
-        equal,
-        equalHead,
-        right,
-        rightPrev
-      ); else if (right.compareTo(pivot) < 0) transferElement(
-        right,
-        rightPrev,
-        left,
-        leftPrev
-      ); else rightPrev = right;
+    compare = right.compareTo(pivot);
+    if (compare <= 0) {
+      Node temp = rightPrev;
+      if (compare == 0 && pivotIndicator != 2) equal.add(right); 
+      else if (compare < 0) {
+        boolean flag = false;
+        if (left == list.head) flag = true;
 
-      right = right.next;
-    }
+        leftPrev = transferElement(right, rightPrev, left, leftPrev);
+        if (right == mid) mid = mid.next;
 
-    if (right == list.tail) {
-      if (list.tail.compareTo(pivot) == 0) {
-        right = rightPrev;
-        right.next = null;
-        list.tail = right;
-      } else if (list.tail.compareTo(pivot) < 0) {
-        leftPrev.next = right;
-        right.next = left;
-        leftPrev = right;
-
-        right = rightPrev;
-        right.next = null;
-        list.tail = right;
-      } else {
-        rightPrev = right;
-        right = right.next;
+        if (flag) list.head = leftPrev != null ? leftPrev : left;
       }
-    }
 
-    while (left.next != mid) {
-      if (left.compareTo(pivot) == 0) addElementToPivotEqualList(
-        equal,
-        equalHead,
-        left,
-        leftPrev
-      ); else if (left.compareTo(pivot) > 0) transferElement(
-        left,
-        leftPrev,
-        right,
-        rightPrev
-      ); else leftPrev = left;
-
-      left = left.next;
-    }
-
-    if (left.compareTo(pivot) == 0) {
-      addElementToPivotEqualList(equal, equalHead, left, leftPrev);
-      left = leftPrev;
-    } else if (left.compareTo(pivot) > 0) {
-      leftPrev.next = left.next;
-      left.next = right.next;
-      right.next = left;
-      rightPrev = right;
-      right = right.next;
-      left = leftPrev;
+      right = temp;
+      right.next = null;
+      list.tail = right;
     }
 
     switch (pivotIndicator) {
@@ -199,32 +180,30 @@ public class QuickSort {
         mid = mid.next;
         break;
       case 2:
-        list.tail = right;
+        list.tail = rightPrev;
         break;
       default:
         break;
     }
 
-    left.next = pivot;
-    if (equalHead != null) {
-      pivot.next = equalHead;
-      equal.next = mid;
-    } else {
-      pivot.next = mid;
-      equal = pivot;
-    }
-
-		left.next = null;
-		equal.next = null;
-		list.tail.next = null;
+    if (list.head == mid) {
+      list.head = null;
+      leftPrev = null;
+    } else leftPrev.next = null;
+    pivot.next = null;
+    equal.add(pivot);
+    list.tail.next = null;
 
     return new LinkedList[] {
-      new LinkedList(list.head, left),
-      new LinkedList(pivot, equal),
+      new LinkedList(list.head, leftPrev),
+      new LinkedList(equal.head, equal.tail),
       new LinkedList(mid, list.tail),
     };
   }
 
+  /*
+   * Get median of 3 nodes
+   */
   public Node getMedian(Node n1, Node n2, Node n3) {
     List<Node> nodes = new ArrayList<>();
     nodes.add(n1);
@@ -235,39 +214,21 @@ public class QuickSort {
   }
 
   /*
-   * Add node to existing list of elements equal to the pivot
-   */
-  public void addElementToPivotEqualList(
-    Node equal,
-    Node equalHead,
-    Node node,
-    Node nodePrev
-  ) {
-    if (equal == null) {
-      equal = node;
-      equalHead = node;
-    } else {
-      equal.next = node;
-      equal = equal.next;
-    }
-
-    nodePrev.next = node.next;
-  }
-
-  /*
    * Transfer node1 to node2.next
    */
-  public void transferElement(
+  public Node transferElement(
     Node node1,
     Node node1Prev,
     Node node2,
     Node node2Prev
   ) {
-    Node temp = node1.next;
-    node1.next = node2.next;
-    node2.next = node1;
-    node2Prev = node2;
-    node2 = node2.next;
-    node1Prev.next = temp;
+    // if (node2.next == node1) return node2Prev;
+    if (node1Prev!=null) node1Prev.next = node1.next;
+
+    node1.next = node2;
+    if (node2Prev != null) node2Prev.next = node1;
+    node2Prev = node1;
+
+    return node2Prev;
   }
 }
