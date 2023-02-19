@@ -39,10 +39,24 @@ public class QuickSort {
    * Perform quick sort on the elements in the linked list
    */
   public LinkedList sortElements(LinkedList linkedList) { // In Progress
+
+		if (linkedList.head == linkedList.tail){
+			return linkedList;
+		}
+
+		if (linkedList.head.next == linkedList.tail){
+			if (linkedList.head.compareTo(linkedList.tail) > 0){
+				linkedList.tail.next = linkedList.head;
+				linkedList.head.next = null;
+				return new LinkedList(linkedList.tail, linkedList.head);
+			}
+			return linkedList;
+		}
+
     LinkedList[] partitions = partition(linkedList);
-    LinkedList left = partitions[0];
+    LinkedList left = sortElements(partitions[0]);
     LinkedList center = partitions[1];
-    LinkedList right = partitions[2];
+    LinkedList right = sortElements(partitions[2]);
 
     left.tail.next = center.head;
     center.tail.next = right.head;
@@ -199,6 +213,10 @@ public class QuickSort {
       pivot.next = mid;
       equal = pivot;
     }
+
+		left.next = null;
+		equal.next = null;
+		list.tail.next = null;
 
     return new LinkedList[] {
       new LinkedList(list.head, left),
