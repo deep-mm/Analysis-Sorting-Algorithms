@@ -18,10 +18,9 @@ public class LinkedList {
    */
   public void add(int element) {
     Node newElement = new Node(element);
-    if(this.head == null){
+    if (this.head == null) {
       this.head = newElement;
-    }
-    else{
+    } else {
       this.tail.next = newElement;
     }
     this.tail = newElement;
@@ -31,10 +30,9 @@ public class LinkedList {
    * Add a new node to the linked list
    */
   public void add(Node element) {
-    if(this.head == null){
+    if (this.head == null) {
       this.head = element;
-    }
-    else{
+    } else {
       this.tail.next = element;
     }
     this.tail = element;
@@ -67,12 +65,18 @@ public class LinkedList {
   /*
    * Exchange 2 nodes
    */
-  public void exchangeNodes(Node first, Node firstPrev, Node second, Node secondPrev) {
-    if (firstPrev != null && firstPrev != second)
-      firstPrev.next = second;
-    
-    if (secondPrev != null && secondPrev != first)
-      secondPrev.next = first;
+  public void exchangeNodes(
+    Node first,
+    Node firstPrev,
+    Node second,
+    Node secondPrev
+  ) {
+    this.head =
+      this.head == first ? second : (this.head == second ? first : this.head);
+
+    if (firstPrev != null && firstPrev != second) firstPrev.next = second;
+
+    if (secondPrev != null && secondPrev != first) secondPrev.next = first;
 
     Node temp = first.next;
     first.next = second.next;
@@ -97,11 +101,10 @@ public class LinkedList {
     Node first = this.head;
     Node second = this.head;
 
-    while (second!=this.tail){
-      if (second.next.next == null){
+    while (second != this.tail) {
+      if (second.next.next == null) {
         second = second.next;
-      }
-      else{
+      } else {
         second = second.next.next;
       }
 
