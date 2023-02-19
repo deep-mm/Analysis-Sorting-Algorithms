@@ -8,6 +8,11 @@ public class Node implements Comparable<Node> {
     this.next = null;
   }
 
+  public Node (Node n) {
+    this.data = n.data;
+    this.next = n.next;
+  }
+
   @Override
   public int compareTo(Node otherNode) {
       Sort.compareCount+=1;

@@ -7,6 +7,11 @@ public class LinkedList {
     this.head = null;
   }
 
+  public LinkedList(Node head, Node tail) {
+    this.head = head;
+    this.tail = tail;
+  }
+
   /*
    * Add a new element to the linked list
    */
@@ -38,6 +43,21 @@ public class LinkedList {
     existing.next = toAdd;
     toAdd.next = temp;
     return existing;
+  }
+
+  /*
+   * Exchange 2 nodes
+   */
+  public void exchangeNodes(Node first, Node firstPrev, Node second, Node secondPrev) {
+    if (firstPrev != null)
+      firstPrev.next = second;
+    
+    if (secondPrev != null)
+      secondPrev.next = first;
+
+    Node temp = first.next;
+    first.next = second.next;
+    second.next = temp;
   }
 
   /*
