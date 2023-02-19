@@ -54,9 +54,11 @@ public class QuickSort {
     LinkedList center = partitions[1];
     LinkedList right = sortElements(partitions[2]);
 
-    if (left.head == null) left.head = center.head; else left.tail.next =
-      center.head;
+    if (left.head == null) left.head = center.head; 
+    else left.tail.next = center.head;
     center.tail.next = right.head;
+
+    if (right.tail == null) right.tail = center.tail;
 
     return new LinkedList(left.head, right.tail);
   }
@@ -186,13 +188,16 @@ public class QuickSort {
         break;
     }
 
-    if (list.head == mid) {
+    if (list.head.compareTo(pivot) == 0) {
+      equal.head = list.head;
       list.head = null;
       leftPrev = null;
-    } else leftPrev.next = null;
+    }
+    else leftPrev.next = null;
     pivot.next = null;
     equal.add(pivot);
-    list.tail.next = null;
+    if (equal.tail.compareTo(list.tail) == 0) list.tail = null;
+    else if (list.tail != null) list.tail.next = null;
 
     return new LinkedList[] {
       new LinkedList(list.head, leftPrev),
