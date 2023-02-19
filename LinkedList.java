@@ -5,6 +5,7 @@ public class LinkedList {
 
   public LinkedList() {
     this.head = null;
+    this.tail = null;
   }
 
   /*
@@ -12,7 +13,12 @@ public class LinkedList {
    */
   public void add(int element) {
     Node newElement = new Node(element);
-    this.tail.next = newElement;
+    if(this.head == null){
+      this.head = newElement;
+    }
+    else{
+      this.tail.next = newElement;
+    }
     this.tail = newElement;
   }
 
