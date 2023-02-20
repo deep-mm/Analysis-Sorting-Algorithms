@@ -20,10 +20,10 @@ jobs:
       - run: diff ${{ matrix.algorithm }}_${{ matrix.input_files }}.out inputs/${{ matrix.input_files }}-${{ matrix.algorithm }}.out > ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
 
       - run: |
-        if [[ $(wc -l <merge_five_worst.compare) -ge 2 ]]
-        then
-            cat ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
-            exit 1
-        else
-            echo "Success"
-        fi
+          if [[ $(wc -l <merge_five_worst.compare) -ge 2 ]]
+          then
+              cat ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
+              exit 1
+          else
+              echo "Success"
+          fi
