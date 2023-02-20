@@ -25,9 +25,8 @@ public class InsertionSort {
       insertElement(elementToInsert);
     }
     timer.stop();
-    // TODO: Uncomment this to print the sorted list
-    //System.out.println("Sorted List: ");
-    //this.list.printLinkedList();
+    System.out.println("Sorted List: ");
+    this.list.printLinkedList();
     System.err.println(comparison.toString());
     System.err.println(timer.toString());
   }

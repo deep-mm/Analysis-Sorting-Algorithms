@@ -149,14 +149,25 @@ public class QuickSort {
       } else break;
     }
 
-    if (list.head.compareTo(pivot) == 0) list.head = null;
-    if (leftPrev == null) leftPrev = list.head;
-    else leftPrev.next = null;
+    if (right == pivot){
+      rightPrev.next = null;
+      right = null;
+      rightEndElement = null;
+    }
 
     mid = mid.next;
     pivot.next = null;
-    if (rightPrev.compareTo(pivot) == 0) rightPrev = null;
-    
+    if (list.head == pivot) {
+      list.head = null;
+      leftPrev = null;
+    }
+
+    if (list.head == null) leftPrev = null;
+    else if (leftPrev == list.head) leftPrev = list.head.next != null ? list.head.next : list.head;
+    else leftPrev.next = null;
+
+    if (mid == null) rightPrev = null;
+
     equal.add(pivot);
 
     return new LinkedList[] {
