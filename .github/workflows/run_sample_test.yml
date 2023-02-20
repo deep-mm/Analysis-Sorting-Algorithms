@@ -7,6 +7,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         algorithm: ['insertion','merge','quick']
         input_files: ['100_reversed','100_sorted','b_1000000_1000','five_worst','r_128_01','sixteen_reversed','sixteen','zr_5000000']
