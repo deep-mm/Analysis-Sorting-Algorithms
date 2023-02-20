@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         algorithm: ['merge']
-        input_files: ['100_reversed','100_sorted','b_1000000_1000','five_worst','r_128_01','sixteen_reversed','sixteen','zr_50000000']
+        input_files: ['100_reversed','100_sorted','b_1000000_1000','five_worst','r_128_01','sixteen_reversed','sixteen','zr_5000000']
     steps:
       - uses: actions/checkout@v2
 
@@ -19,4 +19,11 @@ jobs:
 
       - run: diff ${{ matrix.algorithm }}_${{ matrix.input_files }}.out inputs/${{ matrix.input_files }}-${{ matrix.algorithm }}.out > ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
 
-      - run: rm ${{ matrix.algorithm }}_${{ matrix.input_files }}.out ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
+      - run: |
+          if [[ $(wc -l <merge_five_worst.compare) -ge 2 ]]
+          then
+              cat ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
+              exit 1
+          else
+              echo "Success"
+          fi
