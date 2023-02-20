@@ -26,8 +26,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: |
-          echo "Algorithm: ${{ matrix.algorithm }}"
-          echo "Input_File: ${{ github.event.inputs.input_file }})"
+          echo "Algorithm: ${{ matrix.algorithm }} sort"
+          echo "Input_File: ${{ github.event.inputs.input_file }}"
           echo "Number of Inputs: ${{ github.event.inputs.number_of_inputs }}"
           echo "Block Size: ${{ github.event.inputs.block_size }}"
 
@@ -37,4 +37,4 @@ jobs:
 
       - run: ./run_sort.sh ${{ matrix.algorithm }} < <(tac ${{ github.event.inputs.input_file }}) > output.txt
 
-      - run: tail -3 output.txt
+      - run: cat output.txt
