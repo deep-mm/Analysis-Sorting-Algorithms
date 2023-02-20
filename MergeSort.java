@@ -74,7 +74,7 @@ public class MergeSort {
 		int result = leftPointer.compareTo(rightPointer);
 
 		if(startPointer == null){
-			if(result == 1){
+			if(result >= 0){
 				startPointer = right.head;
 			}
 			else{

@@ -10,7 +10,7 @@
             "request": "launch",
             "mainClass": "Sort",
             "projectName": "Analysis-Sorting-Algorithms_a302695c",
-            "args" : ["quick"]
+            "args" : ["merge"]
         }
     ]
 }
