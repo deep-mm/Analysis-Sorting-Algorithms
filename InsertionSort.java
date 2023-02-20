@@ -1,8 +1,9 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class InsertionSort {
 
   LinkedList list; //Store all the input data and the sorted list
+  List<Node> inputElements;
   Scanner scanner; //Read user input
   Timer timer; //Used to calculate total time taken by an algorithm to run
   Comparison comparison; //Used to calculate the total number of comparisons by an algorithm
@@ -12,6 +13,7 @@ public class InsertionSort {
     scanner = new Scanner(System.in);
     timer = new Timer("Insertion Sort");
     comparison = new Comparison("Insertion Sort");
+    inputElements = new ArrayList<Node>();
   }
 
   /*
@@ -19,10 +21,13 @@ public class InsertionSort {
    * and providing output of sorted list, total time taken and number of comparisons
    */
   public void sortList() {
-    timer.start();
     while (scanner.hasNextInt()) {
       int elementToInsert = scanner.nextInt();
-      insertElement(elementToInsert);
+      inputElements.add(new Node(elementToInsert));
+    }
+    timer.start();
+    for (Node element: inputElements) {
+      insertElement(element);
     }
     timer.stop();
     System.out.println("Sorted List: ");
@@ -34,10 +39,9 @@ public class InsertionSort {
   /*
    * Inserts a new element in a way that the updated list is sorted
    */
-  public void insertElement(int element) {
+  public void insertElement(Node nodeToAdd) {
     Node curr = this.list.head;
     Node prev = null;
-    Node nodeToAdd = new Node(element);
 
     // If head is null or element to insert is less then or equal to head
     if (curr == null || nodeToAdd.compareTo(curr) <= 0) {
