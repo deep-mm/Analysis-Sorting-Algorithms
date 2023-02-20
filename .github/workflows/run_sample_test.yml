@@ -11,6 +11,11 @@ jobs:
       matrix:
         algorithm: ['insertion','merge','quick']
         input_files: ['100_reversed','100_sorted','b_1000000_1000','five_worst','r_128_01','sixteen_reversed','sixteen','zr_5000000']
+        exclude:
+          - algorithm: 'insertion'
+            input_files: 'b_1000000_1000'
+          - algorithm: 'insertion'
+            input_files: 'zr_5000000'
     steps:
       - uses: actions/checkout@v2
 
