@@ -25,8 +25,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: |
+          echo "Algorithm: ${{ matrix.algorithm }}"
+          echo "Input_File: ${{ github.event.inputs.input_file }})"
+          echo "Number of Inputs: ${{ github.event.inputs.number_of_inputs }}"
+          echo "Block Size: ${{ github.event.inputs.block_size }}"
+
       - run: python random_permutation.py ${{ github.event.inputs.number_of_inputs }} -b ${{ github.event.inputs.block_size }} > random.txt
 
       - run: javac Sort.java
 
-      - run: ./run_sort.sh ${{ matrix.algorithm }} < <(tac ${{ github.event.inputs.input_file }})
+      - run: ./run_sort.sh ${{ matrix.algorithm }} < <(tac ${{ github.event.inputs.input_file }}) > output.txt
+
+      - run: tail -3 output.txt
