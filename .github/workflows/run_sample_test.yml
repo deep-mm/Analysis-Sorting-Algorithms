@@ -1,4 +1,4 @@
-name: Run-Sample_Tests
+name: Run-File-Tests
 
 on:
   workflow_dispatch:
