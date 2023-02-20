@@ -3,7 +3,7 @@ import java.util.*;
 public class InsertionSort {
 
   LinkedList list; //Store all the input data and the sorted list
-  List<Node> inputElements;
+  List<Node> inputElements; //List to temporarily store input before adding it to linked list
   Scanner scanner; //Read user input
   Timer timer; //Used to calculate total time taken by an algorithm to run
   Comparison comparison; //Used to calculate the total number of comparisons by an algorithm
