@@ -86,6 +86,7 @@ public class QuickSort {
     Node rightEndElement = null;
     int compare = 0;
 
+    // If pivot is left element, move it to mid
     if (pivot == left) {
       left = left.next;
       pivot.next = mid.next;
@@ -93,6 +94,7 @@ public class QuickSort {
       list.head = left;
     }
 
+    // If equal is last element, move it to mid
     if (pivot == list.tail) {
       pivot.next = mid.next;
       mid.next = pivot;
@@ -110,6 +112,7 @@ public class QuickSort {
         rightEndElement = null;
       }
 
+      // Iterate through right until last element or if an element smaller than pivot is found
       while (right != rightEndElement) {
         compare = right.compareTo(pivot);
         if (compare > 0){
@@ -120,6 +123,7 @@ public class QuickSort {
         else break;
       }
 
+      // Iterate through left until mid or if an element larger than pivot is found
       while (left != mid) {
         compare = left.compareTo(pivot);
         if (compare < 0){
@@ -130,6 +134,7 @@ public class QuickSort {
         else break;
       }
 
+      // Exchange elements based on conditions met
       if (left != mid && right != rightEndElement) {
         list.exchangeNodes(left, leftPrev, right, rightPrev); // Exchange left and right elements
         // Update pointers to next elements
@@ -138,11 +143,11 @@ public class QuickSort {
         rightPrev = left;
         left = right.next;
         right = temp;
-      } else if (right != rightEndElement) {
+      } else if (right != rightEndElement) { // If left has reached mid but right still has elements to check
         Node temp = right.next;
         leftPrev = transferElement(right, rightPrev, left, leftPrev);
         right = temp;
-      } else if (left != mid) {
+      } else if (left != mid) { // If right has reached last, but left still has elements to check
         Node temp = left.next;
         rightPrev = transferElement(left, leftPrev, right, rightPrev);
         left = temp;
@@ -155,6 +160,7 @@ public class QuickSort {
       rightEndElement = null;
     }
 
+    // Update mid, pivot, list.head
     mid = mid.next;
     pivot.next = null;
     if (list.head == pivot) {
@@ -170,6 +176,7 @@ public class QuickSort {
 
     equal.add(pivot);
 
+    // Return 3 linked lists, left, equal and right
     return new LinkedList[] {
       new LinkedList(list.head, leftPrev),
       new LinkedList(equal.head, equal.tail),
@@ -209,6 +216,9 @@ public class QuickSort {
     return node2Prev;
   }
 
+  /*
+   * Remove element that is equal to pivot from the linked list and add to the equal list
+   */
   public Node addToEqualElementsList(Node node, Node nodePrev, LinkedList equal) {
     Node temp = node.next;
     if (list.head == node) list.head = temp;
