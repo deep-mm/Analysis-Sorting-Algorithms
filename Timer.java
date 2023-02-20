@@ -29,7 +29,7 @@ public class Timer {
    * @return cumulative time in seconds
    */
   public double getTotalTime() {
-    return cumulativeTime / 1000.0;
+    return cumulativeTime;
   }
 
   /**
