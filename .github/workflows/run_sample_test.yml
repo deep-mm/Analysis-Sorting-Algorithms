@@ -18,3 +18,7 @@ jobs:
       - run: ./run_sort.sh ${{ matrix.algorithm }} < <(tac inputs/${{ matrix.input_files }}.txt) | tail -n +21 | head -n -1 > ${{ matrix.algorithm }}_${{ matrix.input_files }}.out
 
       - run: diff ${{ matrix.algorithm }}_${{ matrix.input_files }}.out inputs/${{ matrix.input_files }}-${{ matrix.algorithm }}.out > ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
+
+      - run: ./run_sort.sh ${{ matrix.algorithm }} < <(cat inputs/${{ matrix.input_files }}.txt) | tail -n +21 | head -n -1 > ${{ matrix.algorithm }}_${{ matrix.input_files }}.out
+
+      - run: diff ${{ matrix.algorithm }}_${{ matrix.input_files }}.out inputs/${{ matrix.input_files }}-${{ matrix.algorithm }}.out > ${{ matrix.algorithm }}_${{ matrix.input_files }}.compare
