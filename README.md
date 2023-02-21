@@ -15,3 +15,12 @@ To use sorting algorithm:
 ```
 ./run_sort.sh {name_of_algo, e.g. insertion} < <(tac random.txt)
 ```
+
+Running tests on the sample files provided:
+```
+1) Go to Github Actions
+2) Run the workflow "Run-File-Tests"
+3) Monitor the progress for the jobs 
+
+This will run the insertion, merge and quick sort on all of the sample input files provided.
+```
