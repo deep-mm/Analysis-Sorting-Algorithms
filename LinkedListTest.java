@@ -52,10 +52,10 @@ public class LinkedListTest {
         LinkedList singleElementList = createSingleElementLinkedList();
         LinkedList emptyList = createEmptyLinkedList();
 
-        Node midOdd = oddElementsList.findMid();
-        Node midEven = evenElementsList.findMid();
-        Node midSingle = singleElementList.findMid();
-        Node midEmpty = emptyList.findMid();
+        Node midOdd = oddElementsList.getMiddleElement();
+        Node midEven = evenElementsList.getMiddleElement();
+        Node midSingle = singleElementList.getMiddleElement();
+        Node midEmpty = emptyList.getMiddleElement();
 
         assert(midOdd.data == 3);
         assert(midEven.data == 3);

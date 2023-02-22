@@ -100,7 +100,7 @@ public class LinkedList {
   /*
    * This function returns the middle node of the linked list
    */
-  public Node findMid() {
+  public Node getMiddleElement() {
     Node first = this.head;
     Node second = this.head;
 

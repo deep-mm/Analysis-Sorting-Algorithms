@@ -74,7 +74,7 @@ public class QuickSort {
   public LinkedList[] partition(LinkedList list) {
     this.list = list;
     Node left = list.head; // Start left pointer from left most element
-    mid = list.findMid(); // Get middle element
+    mid = list.getMiddleElement(); // Get middle element
     Node last = list.tail; // Get last element
     Node right = mid; // Start right pointer from middle element
 

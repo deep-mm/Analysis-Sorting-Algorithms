@@ -56,7 +56,7 @@ public class MergeSort {
   public LinkedList sortElements(LinkedList localList){
 	
 	// Gets the middle element of the list and splits the list into two halves
-	Node middleElement = localList.findMid();
+	Node middleElement = localList.getMiddleElement();
 	Node tempMiddleNextElement = middleElement.next;
 	middleElement.next = null;
 
