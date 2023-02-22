@@ -3,27 +3,20 @@ public class LinkedList {
   Node head; // Pointer to the head of linked list
   Node tail; // Pointer to the tail of linked list
 
+  /*
+   * Constructor
+   */
   public LinkedList() {
     this.head = null;
     this.tail = null;
   }
 
+  /*
+   * Constructor with head and tail parameters
+   */
   public LinkedList(Node head, Node tail) {
     this.head = head;
     this.tail = tail;
-  }
-
-  /*
-   * Add a new element to the linked list
-   */
-  public void add(int element) {
-    Node newElement = new Node(element);
-    if (this.head == null) {
-      this.head = newElement;
-    } else {
-      this.tail.next = newElement;
-    }
-    this.tail = newElement;
   }
 
   /*
@@ -36,6 +29,14 @@ public class LinkedList {
       this.tail.next = element;
     }
     this.tail = element;
+  }
+
+  /*
+   * Add a new element to the linked list
+   */
+  public void add(int element) {
+    Node newElement = new Node(element);
+    add(newElement);
   }
 
   /*
