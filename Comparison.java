@@ -10,7 +10,7 @@ public class Comparison {
   /*
    * Return total number of current comparisons
    */
-  public int getTotalComparisons() {
+  public long getTotalComparisons() {
     return Sort.compareCount;
   }
 
@@ -18,6 +18,6 @@ public class Comparison {
    * Print the algorithm name and total current comparisons
    */
   public String toString() {
-    return String.format(this.name + "\tcomparisons\t" + getTotalComparisons());
+    return getTotalComparisons() + "";
   }
 }

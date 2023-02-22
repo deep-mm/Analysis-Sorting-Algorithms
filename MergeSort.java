@@ -31,9 +31,11 @@ public class MergeSort {
   public void sortList() {
 
 	// Read the input data from the user
+	int n = 0;
     while (scanner.hasNextInt()) {
       int newElement = scanner.nextInt();
       this.list.add(newElement);
+	  n++;
     }
 
 	// Sorts the elements as well as tracks the time taken by the algorithm to run
@@ -42,12 +44,12 @@ public class MergeSort {
     timer.stop();
     
 	// Prints the sorted list
-    System.out.println("Sorted List: ");
-    this.list.printLinkedList();
-
+    //System.out.println("Sorted List: ");
+    //this.list.printLinkedList();
+	System.out.print(n + ",");
 	// Prints the total time and comparisons taken by the algorithm to run
-    System.err.println(comparison.toString());
-    System.err.println(timer.toString());
+    System.out.print(comparison.toString() + ",");
+    System.out.print(timer.toString());
   }
 
   /*  

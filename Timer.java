@@ -29,7 +29,7 @@ public class Timer {
    * @return cumulative time in seconds
    */
   public double getTotalTime() {
-    return cumulativeTime / 1000.0;
+    return cumulativeTime / 1000;
   }
 
   /**
@@ -50,7 +50,7 @@ public class Timer {
    * @return String representation of the timer, which is [name] [tab] [time]
    */
   public String toString() {
-    return String.format("%s\t runtime \t %8.1f", name, getTotalTime());
+    return getTotalTime() + "";
   }
 }
 //  [Last modified: 2021 02 25 at 14:56:38 GMT]

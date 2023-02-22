@@ -1,6 +1,6 @@
 public class Sort {
 
-  public static int compareCount;
+  public static long compareCount;
 
   public static void main(String args[]) {
     switch (args[0]) {

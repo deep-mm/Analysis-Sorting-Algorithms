@@ -24,17 +24,20 @@ public class QuickSort {
    * and then sorting the linked list
    */
   public void sortList() {
+    int n = 0;
     while (scanner.hasNextInt()) {
       int elementToInsert = scanner.nextInt();
       this.list.add(elementToInsert);
+      n++;
     }
     timer.start();
     this.list = sortElements(this.list);
     timer.stop();
-    System.out.println("Sorted List: ");
-    this.list.printLinkedList();
-    System.err.println(comparison.toString());
-    System.err.println(timer.toString());
+    //System.out.println("Sorted List: ");
+    //this.list.printLinkedList();
+    System.out.print(n + ",");
+    System.out.print(comparison.toString() + ",");
+    System.out.print(timer.toString());
   }
 
   /*

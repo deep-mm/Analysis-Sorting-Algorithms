@@ -21,19 +21,22 @@ public class InsertionSort {
    * and providing output of sorted list, total time taken and number of comparisons
    */
   public void sortList() {
+    int n = 0;
     while (scanner.hasNextInt()) {
       int elementToInsert = scanner.nextInt();
       inputElements.add(new Node(elementToInsert));
+      n++;
     }
     timer.start();
     for (Node element: inputElements) {
       insertElement(element);
     }
     timer.stop();
-    System.out.println("Sorted List: ");
-    this.list.printLinkedList();
-    System.err.println(comparison.toString());
-    System.err.println(timer.toString());
+    //System.out.println("Sorted List: ");
+    //this.list.printLinkedList();
+    System.out.print(n + ",");
+    System.out.print(comparison.toString() + ",");
+    System.out.print(timer.toString());
   }
 
   /*
