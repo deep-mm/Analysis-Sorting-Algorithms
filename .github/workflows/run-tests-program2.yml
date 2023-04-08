@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - run: git clone -b users/dmmehta2 https://${{ secrets.PAT }}@github.ncsu.edu/engr-csc505/csc505-2023_1-IJ.git
-
-      - run: git checkout users/dmmehta2
     
       - run: cd csc505-2023_1-IJ/ProgramTwo
+      
+      - run: ls
 #
       - run: javac ${{ matrix.algorithm }}.java
 #
