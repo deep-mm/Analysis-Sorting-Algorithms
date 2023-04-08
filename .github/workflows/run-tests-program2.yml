@@ -1,0 +1,26 @@
+name: Run-Tests-Program2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        algorithm: ['Boruvkas']
+        input_files: ['bt7','c5','dt_00005_000000_0100_01','dt_100000_000000_100000_01','gm_00010_000020_0500_01','gm_100000_3000000_100000_01','gw_00010_000020_1000_01','gw_100000_3000000_100000_01','p5','rn_00005_000010_0200_01','rn_00010_000020_0500_01','rn_10000_050000_50000_01','rn_20000_100000_50000_01','rn_40000_200000_50000_01','rn_1000000_3000000_100000_01']
+
+    steps:
+      - run: git clone -b users/dmmehta2 https://${{ secrets.PAT }}@github.ncsu.edu/engr-csc505/csc505-2023_1-IJ.git
+
+      - run: cd ProgramTwo
+#
+      - run: javac ${{ matrix.algorithm }}.java
+#
+      - run: java ${{ matrix.algorithm }} < ./inputs/${{ matrix.input_files }}.gph > ./outputs/${{ matrix.input_files }}_test.out 2> ./outputs/${{ matrix.input_files }}_test.err
+#
+      - run: grep -v '^c' ./outputs/${{ matrix.input_files }}_test.out | sort | diff -q - <(grep -v '^c' ./outputs/${{ matrix.input_files }}.out | sort) || echo "Different"
+#
+      - run: awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}_test.err | diff -q - <(awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}.err) || exit 1
