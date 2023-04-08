@@ -14,15 +14,19 @@ jobs:
 
     steps:
       - run: git clone -b users/dmmehta2 https://${{ secrets.PAT }}@github.ncsu.edu/engr-csc505/csc505-2023_1-IJ.git
-    
-      - run: cd csc505-2023_1-IJ/ProgramTwo
-      
-      - run: ls
 #
-      - run: javac ${{ matrix.algorithm }}.java
+      - run: |
+          cd csc505-2023_1-IJ/ProgramTwo
+          javac ${{ matrix.algorithm }}.java
 #
-      - run: java ${{ matrix.algorithm }} < ./inputs/${{ matrix.input_files }}.gph > ./outputs/${{ matrix.input_files }}_test.out 2> ./outputs/${{ matrix.input_files }}_test.err
+      - run: |
+          cd csc505-2023_1-IJ/ProgramTwo
+          java ${{ matrix.algorithm }} < ./inputs/${{ matrix.input_files }}.gph > ./outputs/${{ matrix.input_files }}_test.out 2> ./outputs/${{ matrix.input_files }}_test.err
 #
-      - run: grep -v '^c' ./outputs/${{ matrix.input_files }}_test.out | sort | diff -q - <(grep -v '^c' ./outputs/${{ matrix.input_files }}.out | sort) || echo "Different"
+      - run: |
+          cd csc505-2023_1-IJ/ProgramTwo
+          grep -v '^c' ./outputs/${{ matrix.input_files }}_test.out | sort | diff -q - <(grep -v '^c' ./outputs/${{ matrix.input_files }}.out | sort) || echo "Different"
 #
-      - run: awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}_test.err | diff -q - <(awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}.err) || exit 1
+      - run: |
+          cd csc505-2023_1-IJ/ProgramTwo
+          awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}_test.err | diff -q - <(awk '/weight/ {print $2}' ./outputs/${{ matrix.input_files }}.err) || exit 1
