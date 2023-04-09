@@ -9,12 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        algorithm: ['Boruvkas','Krushkal']
+        algorithm: ['Boruvkas']
         #input_files: ['bt7','c5','dt_00005_000000_0100_01','dt_100000_000000_100000_01','gm_00010_000020_0500_01','gm_100000_3000000_100000_01','gw_00010_000020_1000_01','gw_100000_3000000_100000_01','p5','rn_00005_000010_0200_01','rn_00010_000020_0500_01','rn_10000_050000_50000_01','rn_20000_100000_50000_01','rn_40000_200000_50000_01','rn_1000000_3000000_100000_01']
         input_files: ['bt7','c5','dt_00005_000000_0100_01','dt_100000_000000_100000_01','gm_00010_000020_0500_01','gw_00010_000020_1000_01','p5','rn_00005_000010_0200_01','rn_00010_000020_0500_01','rn_10000_050000_50000_01','rn_20000_100000_50000_01','rn_40000_200000_50000_01']
 
     steps:
-      - run: git clone -b avmeher https://${{ secrets.PAT }}@github.ncsu.edu/engr-csc505/csc505-2023_1-IJ.git
+      - run: git clone -b users/dmmehta2 https://${{ secrets.PAT }}@github.ncsu.edu/engr-csc505/csc505-2023_1-IJ.git
 #
       - run: |
           cd csc505-2023_1-IJ/ProgramTwo
